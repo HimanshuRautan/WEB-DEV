@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Sports Club | Module 2</title>
+
+  <style>
+    /* ---------- Theme colours ---------- */
+    :root {
+      --blue-dark: #0b3d91;
+      --blue: #1e88e5;
+      --orange: #ff9800;
+      --bg: #f2f6fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ---------- Hero header ---------- */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, #42a5f5 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px 70px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+    .hero p {
+      margin: 10px 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* ---------- Sticky navigation ---------- */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px;
+      background: var(--blue-dark);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+    .topnav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .topnav a:hover { background: var(--orange); }
+
+    /* ---------- Layout ---------- */
+    main {
+      max-width: 960px;
+      margin: -35px auto 40px;
+      padding: 0 16px;
+    }
+
+    section {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 26px 30px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 14px rgba(15, 40, 90, 0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--blue-dark);
+      font-size: 1.7rem;
+      padding-bottom: 8px;
+      border-bottom: 4px solid var(--orange);
+      display: inline-block;
+    }
+    h3 {
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    a { color: var(--blue); }
+    a:hover { color: #e65100; }
+
+    hr { display: none; }   /* sections already separate the content */
+
+    /* ---------- Sports section: quick links ---------- */
+    .quick-links a {
+      display: inline-block;
+      background: #e3f2fd;
+      color: var(--blue-dark);
+      text-decoration: none;
+      padding: 5px 14px;
+      margin: 3px 4px 3px 0;
+      border-radius: 16px;
+      font-size: 0.92rem;
+    }
+    .quick-links a:hover { background: var(--orange); color: #fff; }
+
+    /* ---------- Lists ---------- */
+    ul, ol { padding-left: 24px; }
+    li { margin-bottom: 4px; }
+    li::marker { color: var(--orange); font-weight: bold; }
+
+    #sports-offered + ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+    }
+    #sports-offered + ul li {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      border-left: 5px solid var(--blue);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 600;
+      color: var(--blue-dark);
+      margin: 0;
+    }
+
+    /* ---------- Table ---------- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: bold;
+      color: var(--muted);
+      padding-bottom: 8px;
+    }
+    th {
+      background: var(--blue-dark);
+      color: #fff;
+      text-align: left;
+      padding: 12px 14px;
+    }
+    td { padding: 11px 14px; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #f1f6fd; }
+    tr:hover td { background: #fff3e0; }
+
+    .table-wrap { overflow-x: auto; }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s;
+    }
+    .gallery img:hover { transform: scale(1.04); }
+
+    /* ---------- Form ---------- */
+    form {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px 24px 14px;
+      max-width: 520px;
+    }
+    label { font-weight: 600; }
+    input[type="text"], input[type="email"], select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 4px;
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fff;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, select:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.25);
+    }
+    input[type="radio"] + label,
+    input[type="checkbox"] + label { font-weight: normal; margin-right: 10px; }
+    input[type="submit"], input[type="reset"] {
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 0.15s, background 0.2s;
+    }
+    input[type="submit"] { background: var(--blue); }
+    input[type="submit"]:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    input[type="reset"] { background: #78909c; }
+    input[type="reset"]:hover { background: #546e7a; transform: translateY(-2px); }
+
+    /* ---------- Back to top ---------- */
+    .back-top {
+      text-align: right;
+      margin: 18px 0 0;
+    }
+    .back-top a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--blue-dark);
+      color: #fff;
+      padding: 18px;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Buttons and dark mode ---------- */
+    .topnav button, .toggle-btn {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .toggle-btn { margin-top: 8px; background: var(--blue); }
+    #greet { font-size: 1.4rem; font-weight: 600; }
+    body.dark { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; }
+    body.dark td { border-color: #334155; }
+    body.dark tr:nth-child(even) td { background: #243247; }
+    body.dark tr:hover td { background: #334155; }
+    body.dark form { background: #1e293b; border-color: #334155; }
+    body.dark h3, body.dark a { color: #64b5f6; }
+
+    /* ---------- Phones ---------- */
+    @media (max-width: 600px) {
+      section { padding: 20px 16px; }
+      .hero { padding: 40px 16px 55px; }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <div class="hero">
+    <h1>College Sports Club</h1>
+    <p id="greet"></p>
+    <p>Play. Compete. Belong.</p>
+    <p id="today"></p>
+  </div>
+
+  <nav class="topnav">
+    <a href="#sports">Sports &amp; Teams</a>
+    <a href="#events">Events</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#join">Join Club</a>
+    <button id="themeBtn" onclick="changeTheme()">Dark mode</button>
+  </nav>
+
+  <main>
+
+  <!-- SPORTS AND TEAMS: lists and anchor links -->
+  <section>
+  <h2 id="sports">Sports &amp; Teams</h2>
+  <p class="quick-links">
+    <a href="#sports-offered">Sports offered</a>
+    <a href="#trial-steps">Trial process</a>
+    <a href="#requirements">Trial requirements</a>
+  </p>
+
+  <h3 id="sports-offered">Sports offered</h3>
+  <ul id="sportList">
+    <li>Cricket</li>
+    <li>Football</li>
+    <li>Basketball</li>
+    <li>Volleyball</li>
+    <li>Badminton</li>
+    <li>Table Tennis</li>
+    <li>Athletics</li>
+  </ul>
+  <button class="toggle-btn" id="listBtn" onclick="toggleList()">Hide list</button>
+
+  <h3 id="trial-steps">How trials work</h3>
+  <ol>
+    <li>Fill in the <a href="#join">Join Club form</a>.</li>
+    <li>Check the trial date in the <a href="#events">Events table</a>.</li>
+    <li>Arrive 15 minutes early with your college ID.</li>
+    <li>Play the trial session with the coach.</li>
+    <li>Results are announced within a week.</li>
+  </ol>
+
+  <h3 id="requirements">Trial requirements</h3>
+  <ul>
+    <li>Valid college ID card</li>
+    <li>Sports shoes and comfortable clothes</li>
+    <li>A water bottle</li>
+  </ul>
+
+  <p class="back-top"><a href="#top">Back to top &uarr;</a></p>
+  </section>
+
+  <hr>
+
+  <!-- EVENTS: table -->
+  <section>
+  <h2 id="events">Upcoming events</h2>
+  <div class="table-wrap">
+  <table>
+    <caption>Event schedule</caption>
+    <tr>
+      <th>Date</th>
+      <th>Event</th>
+      <th>Venue</th>
+      <th>Time</th>
+    </tr>
+    <tr><td>05 Nov 2026</td><td>Cricket trials</td><td>Main Ground</td><td>4:00 PM</td></tr>
+    <tr><td>08 Nov 2026</td><td>Football trials</td><td>Football Field</td><td>5:00 PM</td></tr>
+    <tr><td>12 Nov 2026</td><td>Basketball friendly match</td><td>Basketball Court</td><td>4:30 PM</td></tr>
+    <tr><td>18 Nov 2026</td><td>Badminton tournament</td><td>Indoor Hall</td><td>10:00 AM</td></tr>
+    <tr><td>25 Nov 2026</td><td>Annual Sports Day</td><td>Main Ground</td><td>9:00 AM</td></tr>
+  </table>
+  </div>
+
+  <p class="back-top"><a href="#top">Back to top &uarr;</a></p>
+  </section>
+
+  <hr>
+
+  <!-- GALLERY: images with alt text -->
+  <section>
+  <h2 id="gallery">Gallery</h2>
+  <p>Moments from matches, practice and celebrations.</p>
+
+  <div class="gallery">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTbjCuK0kkW3OUHnBUgibqn_TjzwKbmNj-Ht0XEraTkBv6b5tk6KuWWrv1&s=10" alt="Players in action during a campus match" width="300" height="400">
+    <img src="https://www.niet.co.in/assets/frontend/images/sports-1.webp" alt="Team practicing drills on the ground" width="300" height="200">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmai5kE3YoNAIN6xaT9RVnAvsBsVCX-a17EuBm9Oo7oQ&s=10" alt="Winning team holding a trophy" width="300" height="200">
+  </div>
+
+  <p class="back-top"><a href="#top">Back to top &uarr;</a></p>
+  </section>
+
+  <hr>
+
+  <!-- join club: club form -->
+  <section>
+  <h2 id="join">Join a club</h2>
+  <p>Fill in the form and the coordinator will contact you about trials.</p>
+
+  <form action="#" method="post" onsubmit="return checkForm()">
+
+    <p>
+      <label for="name">Full name:</label><br>
+      <input type="text" id="name" name="name" required>
+    </p>
+
+    <p>
+      <label for="email">College email:</label><br>
+      <input type="email" id="email" name="email" required>
+    </p>
+
+    <p>
+      <label for="sport">Preferred sport:</label><br>
+      <select id="sport" name="sport">
+        <option value="cricket">Cricket</option>
+        <option value="football">Football</option>
+        <option value="basketball">Basketball</option>
+        <option value="volleyball">Volleyball</option>
+        <option value="badminton">Badminton</option>
+        <option value="tabletennis">Table Tennis</option>
+        <option value="athletics">Athletics</option>
+      </select>
+    </p>
+
+    <p>Year of study:<br>
+      <input type="radio" id="y1" name="year" value="1">
+      <label for="y1">1st year</label>
+      <input type="radio" id="y2" name="year" value="2">
+      <label for="y2">2nd year</label>
+      <input type="radio" id="y3" name="year" value="3">
+      <label for="y3">3rd year</label>
+      <input type="radio" id="y4" name="year" value="4">
+      <label for="y4">4th year</label>
+    </p>
+
+    <p>
+      <input type="checkbox" id="agree" name="agree" required>
+      <label for="agree">I agree to follow the club rules.</label>
+    </p>
+
+    <p>
+      <input type="submit" value="Submit">
+      <input type="reset" value="Clear" onclick="return confirm('Clear the form?')">
+    </p>
+
+  </form>
+
+  <p class="back-top"><a href="#top">Back to top &uarr;</a></p>
+  </section>
+
+  </main>
+
+  <footer>
+    College Sports Club | Web Designing (DCSE0152) | Group 10
+  </footer>
+
+<script>
+  // Ask for the name and greet the visitor
+  var today = new Date();
+  var visitor = prompt("What is your name?");
+  if (visitor == null || visitor == "") {
+    visitor = "Guest";
+  }
+  document.getElementById("greet").innerHTML = "Welcome, " + visitor + "!";
+
+  // Live clock in the header
+  function showTime() {
+    var now = new Date();
+    document.getElementById("today").innerHTML = now.toDateString() + " | " + now.toLocaleTimeString();
+  }
+  showTime();
+  setInterval(showTime, 1000);
+
+  // Switch between light and dark mode
+  function changeTheme() {
+    document.body.classList.toggle("dark");
+    var btn = document.getElementById("themeBtn");
+    if (document.body.classList.contains("dark")) {
+      btn.innerHTML = "Light mode";
+    } else {
+      btn.innerHTML = "Dark mode";
+    }
+  }
+
+  // Show or hide the sports list
+  function toggleList() {
+    var list = document.getElementById("sportList");
+    var btn = document.getElementById("listBtn");
+    if (list.style.display == "none") {
+      list.style.display = "grid";
+      btn.innerHTML = "Hide list";
+    } else {
+      list.style.display = "none";
+      btn.innerHTML = "Show list";
+    }
+  }
+
+  // Fade out events that are already over
+  var rows = document.querySelectorAll("table tr");
+  for (var i = 1; i < rows.length; i++) {
+    var eventDate = new Date(rows[i].cells[0].innerHTML);
+    if (eventDate < today) {
+      rows[i].style.opacity = "0.5";
+    }
+  }
+
+  // Check the form when Submit is clicked
+  function checkForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var year = document.querySelector("input[name='year']:checked");
+
+    if (name.length < 3) {
+      alert("Please enter your full name.");
+      return false;
+    } else if (email.indexOf("@") == -1) {
+      alert("Please enter a valid email.");
+      return false;
+    } else if (year == null) {
+      alert("Please select your year of study.");
+      return false;
+    } else {
+      alert("Thank you " + name + "! Your form is submitted.");
+      return false;
+    }
+  }
+</script>
+
+</body>
+</html>
